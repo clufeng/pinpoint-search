@@ -1,7 +1,7 @@
 package com.p.s.w.configuration;
 
 
-import com.p.s.c.utils.RangeOneByteSimpleHash;
+import com.p.s.pinpoint.utils.RangeOneByteSimpleHash;
 import com.sematext.hbase.wd.RowKeyDistributorByHashPrefix;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

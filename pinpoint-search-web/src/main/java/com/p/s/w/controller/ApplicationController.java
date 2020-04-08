@@ -1,8 +1,8 @@
 package com.p.s.w.controller;
 
 
-import com.p.s.c.model.Application;
-import com.p.s.c.service.ApplicationService;
+import com.p.s.pinpoint.model.Application;
+import com.p.s.core.service.ApplicationService;
 import com.p.s.w.api.ApiResponse;
 import com.p.s.w.api.ListJson;
 import org.springframework.beans.factory.annotation.Autowired;
