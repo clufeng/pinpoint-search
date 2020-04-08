@@ -11,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 
 /**
  * HBase配置类
+ *
  * @author clufeng
  * @version 1.0.0
  **/
@@ -21,17 +22,18 @@ public class HBaseConfiguration {
     @Bean
     public org.apache.hadoop.conf.Configuration getHBaseConfigurationFactoryBean(@Value("${hbase.client.host}") String quorum,
                                                                                  @Value("${hbase.client.port}") String clientPort,
+                                                                                 @Value("${hbase.zookeeper.znode.parent}") String znodeParent,
                                                                                  @Value("${hbase.ipc.client.tcpnodelay}") String tcpnodelay,
                                                                                  @Value("${hbase.rpc.timeout}") String rpcTimeout,
                                                                                  @Value("${hbase.client.operation.timeout}") String opTimeout,
                                                                                  @Value("${hbase.ipc.client.socket.timeout.read}") String readTimeout,
-                                                                                 @Value("${hbase.ipc.client.socket.timeout.write}") String writeTimeout){
+                                                                                 @Value("${hbase.ipc.client.socket.timeout.write}") String writeTimeout) {
 
         org.apache.hadoop.conf.Configuration configuration = org.apache.hadoop.hbase.HBaseConfiguration.create();
 
         configuration.set("hbase.zookeeper.quorum", quorum);
         configuration.set("hbase.zookeeper.property.clientPort", clientPort);
-        configuration.set("zookeeper.znode.parent", "/hbase");
+        configuration.set("zookeeper.znode.parent", znodeParent);
         configuration.set("hbase.ipc.client.tcpnodelay", tcpnodelay);
         configuration.set("hbase.rpc.timeout", rpcTimeout);
         configuration.set("hbase.client.operation.timeout", opTimeout);
@@ -57,12 +59,18 @@ public class HBaseConfiguration {
 
     }
 
-    @Bean
+    @Bean(initMethod = "init",destroyMethod = "destroy")
     public HBaseTemplate getHBaseOperations(@Autowired org.apache.hadoop.conf.Configuration configuration,
-                                            @Autowired TableFactory tableFactory) {
+                                            @Autowired TableFactory tableFactory,
+                                            @Value("${hbase.client.parallel.scan.enable}") boolean enableParallelScan,
+                                            @Value("${hbase.client.parallel.scan.maxthreads}") int maxThreads,
+                                            @Value("${hbase.client.parallel.scan.maxthreadsperscan}") int scanMaxThread) {
         HBaseTemplate template = new HBaseTemplate();
         template.setTableFactory(tableFactory);
         template.setConfiguration(configuration);
+        template.setEnableParallelScan(enableParallelScan);
+        template.setMaxThreadsPerParallelScan(scanMaxThread);
+        template.setMaxThreads(maxThreads);
         return template;
     }
 
