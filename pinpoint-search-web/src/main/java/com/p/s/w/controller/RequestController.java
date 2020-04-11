@@ -13,10 +13,7 @@ import com.p.s.w.api.ListJson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.Set;
@@ -42,7 +39,7 @@ public class RequestController extends BasicController {
         this.applicationService = applicationService;
     }
 
-    @RequestMapping(value = "/{appName}/requests")
+    @PostMapping(value = "/{appName}/requests")
     public ApiResponse<ListJson<Request>> getRequest(@PathVariable String appName,
                                                      @RequestParam(required = false) String rpcName,
                                                      @RequestParam(required = false) Set<String> agentIds,
