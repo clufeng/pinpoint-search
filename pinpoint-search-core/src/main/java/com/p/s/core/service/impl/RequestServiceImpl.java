@@ -29,10 +29,10 @@ public class RequestServiceImpl implements RequestService {
 
     private final ApplicationTraceService traceService;
 
-    @Value("${host}")
+    @Value("${pinpointWebUrl}")
     private String pinpointHost;
 
-    @Value("${history}")
+    @Value("${history:true}")
     private boolean history;
 
     private final ApplicationTraceIndexService traceIndexService;

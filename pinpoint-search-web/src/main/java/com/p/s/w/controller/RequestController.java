@@ -27,10 +27,10 @@ public class RequestController extends BasicController {
 
     private final ApplicationService applicationService;
 
-    @Value("${query.time.max.hour}")
+    @Value("${query.time.max.hour:48}")
     private int maxHour;
 
-    @Value("${elapsed.threshold}")
+    @Value("${elapsed.threshold:1000}")
     private int threshold;
 
     @Autowired

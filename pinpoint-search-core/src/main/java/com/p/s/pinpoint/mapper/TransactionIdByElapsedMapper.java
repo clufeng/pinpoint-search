@@ -19,7 +19,7 @@ import java.util.List;
 @Component
 public class TransactionIdByElapsedMapper implements RowMapper<List<TransactionId>> {
 
-    @Value("${elapsed.threshold}")
+    @Value("${elapsed.threshold:1000}")
     private int threshold;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

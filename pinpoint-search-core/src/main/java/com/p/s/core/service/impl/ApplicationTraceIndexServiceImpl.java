@@ -47,10 +47,10 @@ public class ApplicationTraceIndexServiceImpl implements ApplicationTraceIndexSe
     private AbstractRowKeyDistributor traceIdRowKeyDistributor;
 
 
-    @Value("${query.limit}")
+    @Value("${query.limit:1000}")
     private int queryLimit;
 
-    @Value("${hbase.num.parallel.threads}")
+    @Value("${hbase.num.parallel.threads:16}")
     private int numParallelThreads;
 
 

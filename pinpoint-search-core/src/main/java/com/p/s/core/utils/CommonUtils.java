@@ -21,8 +21,8 @@ public class CommonUtils {
     public static final FastDateFormat df3 = FastDateFormat.getInstance("yyyyMMdd");
 
 
-    public static String buildUrl(String pinpointHost, boolean history, Application app, SpanBo spanBo, Range range) {
-        return "http://"+pinpointHost+"/" + (history ? "#/" : "") + "transactionList/"
+    public static String buildUrl(String pinpointWebUrl, boolean history, Application app, SpanBo spanBo, Range range) {
+        return pinpointWebUrl+"/" + (!history ? "#/" : "") + "transactionList/"
                 + app.getName()+ "@" + ServiceTypeUtils.getServiceType(app.getServiceTypeCode()) + "/" + getReadablePeriod(range) + "/"
                 + getQueryEndDateTime(range.getFrom()) + "/" + formatString(spanBo.getTransactionId())
                 + "-" + spanBo.getCollectorAcceptTime() + "-" + spanBo.getElapsed();

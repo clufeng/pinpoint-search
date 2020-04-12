@@ -22,7 +22,10 @@
           >Agent ID (已选择{{selectAgentIds.length}}个)</el-button>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="searchForm.rpcName" placeholder="PATH" style="width:340px;" clearable></el-input>
+          <el-input v-model="searchForm.rpcName" placeholder="PATH" style="width:210px" clearable></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input v-model="searchForm.threshold" placeholder=" > exec(ms)" style="width:120px" clearable></el-input>
         </el-form-item>
         <el-form-item>
           <el-date-picker
@@ -129,6 +132,10 @@ export default {
 
           if (_.has(this.searchForm, 'hasErr')) {
             params.hasErr = this.searchForm.hasErr
+          }
+
+          if (_.has(this.searchForm, 'threshold')) {
+            params.threshold = this.searchForm.threshold
           }
 
           getPinpointDatas(this.searchForm.app, params).then(reqs => {
