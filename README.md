@@ -1,5 +1,7 @@
 # Pinpoint Search
 
+[中文文档](./README_CN.md)
+
 Expand [pinpoint](https://github.com/naver/pinpoint) query function
 
 Support pinpoint precise search
