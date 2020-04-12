@@ -11,6 +11,13 @@
 
     <artifactId>pinpoint-search-web</artifactId>
 
+    <properties>
+        <build.node.version>v12.9.1</build.node.version>
+        <build.npm.version>6.14.1</build.npm.version>
+        <plugin.frontend.node.install.dir>/node_install/node-${build.node.version}</plugin.frontend.node.install.dir>
+    </properties>
+
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -49,5 +56,70 @@
         </dependency>
 
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
+                <configuration>
+                    <attachClasses>true</attachClasses>
+                    <classesClassifier>classes</classesClassifier>
+<!--                    <webappDirectory>${project.build.directory}/deploy</webappDirectory>-->
+                    <webResources>
+                        <resource>
+                            <directory>src/main/front/build</directory>
+                        </resource>
+                    </webResources>
+                </configuration>
+
+            </plugin>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.9.1</version>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                    </execution>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm run build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <arguments>run build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <nodeVersion>${build.node.version}</nodeVersion>
+                    <npmVersion>${build.npm.version}</npmVersion>
+                    <installDirectory>${project.parent.basedir}/${plugin.frontend.node.install.dir}</installDirectory>
+                    <workingDirectory>${basedir}/src/main/webapp</workingDirectory>
+                    <skip>false</skip>
+                    <!-- 若不方便访问官网，可使用国内淘宝镜像-->
+                    <nodeDownloadRoot>https://npm.taobao.org/mirrors/node/</nodeDownloadRoot>
+                    <npmDownloadRoot>https://registry.npm.taobao.org/npm/-/</npmDownloadRoot>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 
 </project>

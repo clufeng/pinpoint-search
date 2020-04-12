@@ -61,3 +61,5 @@ fabric.properties
 hs_err_pid*
 
 node_modules
+
+node_install
